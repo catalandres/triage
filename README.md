@@ -3,14 +3,22 @@
 * The triage class is designed to be the **only** class that knows about the trigger context and acts upon it.
 
 * The trigger should be a one-liner that sends its context to the triage class, for example:
-    ```
-    trigger Widgets on Widget__c (before insert, after insert, before update, after update, before delete, after delete, after undelete) {
-
-        (new WidgetTriage(Trigger.oldMap, Trigger.new)).handle(Trigger.operationType);
+    ```Apex
+    trigger Widgets on Widget__c (
+        before insert, 
+        after insert, 
+        before update, 
+        after update, 
+        before delete, 
+        after delete, 
+        after undelete
+    ) {
+        (new WidgetTriage(Trigger.oldMap, Trigger.new))
+            .handle(Trigger.operationType);
     }
     ```
 * Triage classes should extend `SObjectTriage` and override any of the proctected `on()` methods as necessary, for example:
-    ```
+    ```Apex
     public with sharing class WidgetTriage extends SObjectTriage {
 
         // Constructor
